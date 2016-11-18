@@ -1,0 +1,8 @@
+<?php
+
+/*
+ * Url rules
+ */
+return [
+
+];
