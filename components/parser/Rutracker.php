@@ -70,7 +70,7 @@ class Rutracker
 
         $doc = \phpQuery::newDocument($curl->result);
 
-        $img_src = $doc->find('.post_body .postImg.postImgAligned.img-right')->attr('title');
+        $img_src = $doc->find('.post_body .postImg.postImgAligned')->attr('title');
 
         $data = [
             'image_src' => $img_src,
