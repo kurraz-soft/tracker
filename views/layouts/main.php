@@ -175,22 +175,6 @@ _________________________________________________________ -->
                         </div>
                         <!--/.nav-collapse -->
 
-                        <div class="collapse clearfix" id="search">
-
-                            <form class="navbar-form" role="search">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Search">
-                                    <span class="input-group-btn">
-
-                                        <button type="submit" class="btn btn-template-main"><i class="fa fa-search"></i></button>
-
-                                    </span>
-                                </div>
-                            </form>
-
-                        </div>
-                        <!--/.nav-collapse -->
-
                     </div>
 
 
@@ -210,11 +194,21 @@ _________________________________________________________ -->
                         <h1><?= Html::encode($this->title) ?></h1>
                     </div>
                     <div class="col-md-5">
-                        <?= Breadcrumbs::widget([
-                            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-                        ]) ?>
+                        <form role="search" style="margin-top: 15px" action="<?= Url::to(['site/search']) ?>">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Search" name="q" value="<?= Yii::$app->request->get('q') ?>">
+                                <span class="input-group-btn">
+                                    <button type="submit" class="btn btn-template-main"><i class="fa fa-search"></i></button>
+                                </span>
+                            </div>
+                        </form>
                     </div>
                 </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row">
+
             </div>
         </div>
 

@@ -61,4 +61,28 @@ class SiteController extends Controller
             'pages' => $pages,
         ]);
     }
+
+    public function actionSearch($q)
+    {
+        $pages = new Pagination();
+        $pages->pageSize = 20;
+        $category = null;
+
+        $query = TrackerItems::find()->active()->andWhere(['like','name',$q]);
+
+
+        $countQ = clone $query;
+        $pages->totalCount = $countQ->count();
+
+        $items = $query->limit($pages->limit)
+            ->offset($pages->offset)
+            ->orderBy(['date' => SORT_DESC])
+            ->all();
+
+        return $this->render('index', [
+            'items' => $items,
+            'category' => $category,
+            'pages' => $pages,
+        ]);
+    }
 }
