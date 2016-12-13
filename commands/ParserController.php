@@ -40,6 +40,16 @@ class ParserController extends Controller
         echo "DONE. {$cnt} processed\n";
     }
 
+    public function actionParseGames()
+    {
+        $parser = new Rutracker();
+        $parser->crawlerCategory(55,10);
+
+        sleep(5);
+
+        while($this->actionSpider()) {sleep(5);}
+    }
+
     public function saveCrawlerItems($items, $cat_id)
     {
         /**
@@ -92,5 +102,7 @@ class ParserController extends Controller
         }
 
         echo "DONE. {$cnt} processed\n";
+
+        return $cnt;
     }
 }
