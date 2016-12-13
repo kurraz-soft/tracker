@@ -65,7 +65,7 @@ class Rutracker
         return $data;
     }
 
-    private function _parseCrawlerUrl($url, $unload = true, $doc = null)
+    private function _parseCrawlerUrl($url, $unload = true, &$doc = null)
     {
         $curl = new Curl();
         $curl->cookieFile($this->cookieFile())->cookie($this->cookieFile());
