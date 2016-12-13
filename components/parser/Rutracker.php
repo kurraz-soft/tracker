@@ -38,12 +38,39 @@ class Rutracker
         if(strpos(iconv('cp1251','UTF-8',$curl->result),'Вы зашли как') === false) throw new ErrorException("Can't login");
     }
 
-    public function crawlerCategory($cat_id)
+    public function crawlerCategory($cat_id, $pages = 1)
+    {
+        /**
+         * @var \phpQueryObject $doc
+         */
+        $doc = null;
+
+        $data = $this->_parseCrawlerUrl(self::TRACKER_URL.'?f='.$cat_id, false, $doc);
+
+        $href = $doc->find('.pg:first')->attr('href');
+
+        $doc->unloadDocument();
+
+        $matches = [];
+        if(preg_match('#tracker\.php\?search_id=(.+)&#',$href,$matches))
+        {
+            $search_id = $matches[1];
+            for($i = 1; $i < $pages; $i++)
+            {
+                $url = self::TRACKER_URL.'?search_id='.$search_id.'&start='.$i*50;
+                $data = array_merge($data, $this->_parseCrawlerUrl($url));
+            }
+        }
+
+        return $data;
+    }
+
+    private function _parseCrawlerUrl($url, $unload = true, $doc = null)
     {
         $curl = new Curl();
         $curl->cookieFile($this->cookieFile())->cookie($this->cookieFile());
 
-        $curl->url(self::TRACKER_URL.'?f='.$cat_id)->execute();
+        $curl->url($url)->execute();
 
         $doc = \phpQuery::newDocument(iconv('cp1251','UTF-8',$curl->result));
 
@@ -57,6 +84,8 @@ class Rutracker
                 'timestamp' => trim(pq($row)->find('.row4.small.nowrap:not(.tor-size) u')->text()),
             ];
         }
+
+        if($unload) $doc->unloadDocument();
 
         return $data;
     }
