@@ -43,7 +43,7 @@ class ParserController extends Controller
     public function actionParseGames()
     {
         $parser = new Rutracker();
-        $items = $parser->crawlerCategory(55,10);
+        $items = $parser->crawlerCategory(52,10);
         $this->saveCrawlerItems($items,2);
 
         sleep(5);
