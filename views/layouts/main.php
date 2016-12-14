@@ -238,7 +238,7 @@ _________________________________________________________ -->
         <div id="copyright">
             <div class="container">
                 <div class="col-md-12">
-                    <p class="pull-left">&copy; <?= date('Y') ?>. Kurraz Soft</p>
+                    <?/*<p class="pull-left">&copy; <?= date('Y') ?>. Kurraz Soft</p> */?>
                     <p class="pull-right">Template by <a href="http://bootstrapious.com">Bootstrap 4 Themes</a> with support from <a href="http://kakusei.cz">Designové předměty</a>
                         <!-- Not removing these links is part of the licence conditions of the template. Thanks for understanding :) -->
                     </p>
