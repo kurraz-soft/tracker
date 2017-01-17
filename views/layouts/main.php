@@ -160,6 +160,7 @@ _________________________________________________________ -->
                                                         <ul>
                                                             <li><a href="<?= Url::to(['site/index','cat_id' => 1]) ?>">Сериалы</a></li>
                                                             <li><a href="<?= Url::to(['site/index','cat_id' => 3]) ?>">Мультсериалы</a></li>
+                                                            <li><a href="<?= Url::to(['site/index','cat_id' => 4]) ?>">Аниме</a></li>
                                                         </ul>
                                                     </div>
                                                     <div class="col-sm-3">
