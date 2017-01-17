@@ -74,6 +74,8 @@ AppAsset::register($this);
     <link href="/css/owl.carousel.css" rel="stylesheet">
     <link href="/css/owl.theme.css" rel="stylesheet">
 
+    <meta name="google-site-verification" content="YPfLsY7wPaAg24j4p46zDNyQ7ib94xNy8ufvOQMTJFo" />
+
     <?php $this->head() ?>
 
 </head>
