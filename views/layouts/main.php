@@ -218,8 +218,8 @@ _________________________________________________________ -->
                                         [
                                             'display' => 'value',
                                             'remote' => [
-                                                'url' => Url::to(['site/search-typeahead','q' => '%QUERY']),
-                                                'wildcard' => '%QUERY',
+                                                'url' => Url::to(['site/search-typeahead']) . '?q=%QUERY',
+                                                'wildcard' => '%QUERY'
                                             ]
                                         ]
                                     ]
