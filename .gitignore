@@ -34,3 +34,4 @@ Vagrantfile
 /web/upload
 /web/assets
 .log
+composer.lock
