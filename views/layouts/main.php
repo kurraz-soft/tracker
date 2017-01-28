@@ -215,13 +215,15 @@ _________________________________________________________ -->
                                     'name' => 'q',
                                     'options' => ['placeholder' => 'Search'],
                                     'dataset' => [
-                                        'display' => 'value',
-                                        'local' => [['value' => 'asd'], ['value' => 'asd213']],
-                                        /*
-                                        'remote' => [
-                                            'url' => Url::to(['site/search-typeahead','q' => '%QUERY']),
-                                            'wildcard' => '%QUERY',
-                                        ]*/
+                                        [
+                                            'display' => 'value',
+                                            'local' => [['value' => 'asd'], ['value' => 'asd213']],
+                                            /*
+                                            'remote' => [
+                                                'url' => Url::to(['site/search-typeahead','q' => '%QUERY']),
+                                                'wildcard' => '%QUERY',
+                                            ]*/
+                                        ]
                                     ]
                                 ]) ?>
                                 <span class="input-group-btn">
