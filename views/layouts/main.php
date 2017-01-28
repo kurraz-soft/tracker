@@ -214,8 +214,8 @@ _________________________________________________________ -->
                                 <?= \kartik\widgets\Typeahead::widget([
                                     'name' => 'q',
                                     'options' => ['placeholder' => 'Search'],
-                                    'display' => 'value',
                                     'dataset' => [
+                                        'display' => 'value',
                                         'remote' => [
                                             'url' => Url::to(['site/search-typeahead','q' => '%QUERY']),
                                             'wildcard' => '%QUERY',
