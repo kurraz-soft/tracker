@@ -211,7 +211,16 @@ _________________________________________________________ -->
                     <div class="col-md-5">
                         <form role="search" style="margin-top: 15px" action="<?= Url::to(['site/search']) ?>">
                             <div class="input-group">
-                                <input data-url="<?= Url::to(['site/search-typeahead']) ?>" id="search-input" type="text" class="form-control" placeholder="Search" name="q" value="<?= Yii::$app->request->get('q') ?>">
+                                <input
+                                    data-url="<?= Url::to(['site/search-typeahead']) ?>"
+                                    id="search-input"
+                                    type="text"
+                                    class="form-control"
+                                    placeholder="Search"
+                                    name="q"
+                                    value="<?= Yii::$app->request->get('q') ?>"
+                                    autocomplete="off"
+                                >
                                 <span class="input-group-btn">
                                     <button type="submit" class="btn btn-template-main"><i class="fa fa-search"></i></button>
                                 </span>
