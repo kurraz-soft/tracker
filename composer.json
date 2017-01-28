@@ -24,7 +24,8 @@
         "kartik-v/yii2-widgets": "*",
         "cornernote/phpthumb": "v1.7.11",
         "yiisoft/yii2-composer": "^2.0",
-        "fxp/composer-asset-plugin": "~1.0"
+        "fxp/composer-asset-plugin": "~1.0",
+        "kartik-v/yii2-widget-typeahead": "*"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "*",
