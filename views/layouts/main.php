@@ -36,6 +36,7 @@ AppAsset::register($this);
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js"></script>
 
     <script src="/js/jquery.cookie.js"></script>
     <script src="/js/waypoints.min.js"></script>
@@ -77,6 +78,16 @@ AppAsset::register($this);
     <meta name="google-site-verification" content="YPfLsY7wPaAg24j4p46zDNyQ7ib94xNy8ufvOQMTJFo" />
 
     <?php $this->head() ?>
+
+    <script>
+    $(function(){
+        $('#search-input').typeahead({source: function(query, process){
+            return $.get($('#search-input').data('url') + '?q=' + query, function(data) {
+                return process(data);
+            })
+        }, minLength: 2});
+    });
+    </script>
 
 </head>
 
@@ -200,7 +211,7 @@ _________________________________________________________ -->
                     <div class="col-md-5">
                         <form role="search" style="margin-top: 15px" action="<?= Url::to(['site/search']) ?>">
                             <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Search" name="q" value="<?= Yii::$app->request->get('q') ?>">
+                                <input data-url="<?= Url::to(['site/search-typeahead']) ?>" id="search-input" type="text" class="form-control" placeholder="Search" name="q" value="<?= Yii::$app->request->get('q') ?>">
                                 <span class="input-group-btn">
                                     <button type="submit" class="btn btn-template-main"><i class="fa fa-search"></i></button>
                                 </span>

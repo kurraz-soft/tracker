@@ -85,4 +85,9 @@ class SiteController extends Controller
             'pages' => $pages,
         ]);
     }
+
+    public function actionSearchTypeahead($q)
+    {
+        return json_encode(TrackerItems::find()->limit(5)->active()->andWhere(['like','name',$q])->select('name')->asArray());
+    }
 }
