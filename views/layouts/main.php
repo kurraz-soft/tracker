@@ -217,12 +217,10 @@ _________________________________________________________ -->
                                     'dataset' => [
                                         [
                                             'display' => 'value',
-                                            'local' => [['value' => 'asd'], ['value' => 'asd213']],
-                                            /*
                                             'remote' => [
                                                 'url' => Url::to(['site/search-typeahead','q' => '%QUERY']),
                                                 'wildcard' => '%QUERY',
-                                            ]*/
+                                            ]
                                         ]
                                     ]
                                 ]) ?>
