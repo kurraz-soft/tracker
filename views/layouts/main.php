@@ -198,7 +198,7 @@ _________________________________________________________ -->
                         <h1><?= Html::encode($this->title) ?></h1>
                     </div>
                     <div class="col-md-5">
-                        <form role="search" style="margin-top: 15px" action="<?= Url::to(['site/search']) ?>">
+                        <form id="search-form" role="search" style="margin-top: 15px" action="<?= Url::to(['site/search']) ?>">
                             <div class="input-group">
                                 <?/*
                                 <input
@@ -222,7 +222,10 @@ _________________________________________________________ -->
                                                 'wildcard' => '%QUERY'
                                             ]
                                         ]
-                                    ]
+                                    ],
+                                    'pluginEvents' => [
+                                        'typeahead:select' => 'function(){ $("#search-form").submit(); }',
+                                    ],
                                 ]) ?>
                                 <span class="input-group-btn">
                                     <button type="submit" class="btn btn-template-main"><i class="fa fa-search"></i></button>
