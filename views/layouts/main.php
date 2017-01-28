@@ -221,8 +221,14 @@ _________________________________________________________ -->
                                             'remote' => [
                                                 'url' => Url::to(['site/search-typeahead']) . '?q=%QUERY',
                                                 'wildcard' => '%QUERY'
-                                            ]
+                                            ],
+                                            'templates' => [
+                                                'suggestion' => '<p style="white-space: normal; padding-top: 5px; padding-bottom: 5px">{{value}}</p>',
+                                            ],
                                         ]
+                                    ],
+                                    'pluginOptions' => [
+                                        'highlight' => true,
                                     ],
                                     'pluginEvents' => [
                                         'typeahead:select' => 'function(){ $("#search-form").submit(); }',
