@@ -211,6 +211,7 @@ _________________________________________________________ -->
                                     value="<?= Yii::$app->request->get('q') ?>"
                                     autocomplete="off"
                                 >*/?>
+                                <?php $templ = '<p style="white-space: normal; padding-top: 5px; padding-bottom: 5px">{{value}}</p>'; ?>
                                 <?= \kartik\widgets\Typeahead::widget([
                                     'name' => 'q',
                                     'options' => ['placeholder' => 'Search'],
@@ -223,7 +224,7 @@ _________________________________________________________ -->
                                                 'wildcard' => '%QUERY'
                                             ],
                                             'templates' => [
-                                                'suggestion' => '<p style="white-space: normal; padding-top: 5px; padding-bottom: 5px">{{value}}</p>',
+                                                'suggestion' => new \yii\web\JsExpression("Handlebars.compile('{$templ}')"),
                                             ],
                                         ]
                                     ],
