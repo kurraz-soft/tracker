@@ -216,6 +216,7 @@ _________________________________________________________ -->
                                     'options' => ['placeholder' => 'Search'],
                                     'dataset' => [
                                         [
+                                            'datumTokenizer' => "Bloodhound.tokenizers.obj.whitespace('value')",
                                             'display' => 'value',
                                             'remote' => [
                                                 'url' => Url::to(['site/search-typeahead']) . '?q=%QUERY',
