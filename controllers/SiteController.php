@@ -13,6 +13,8 @@ use yii\web\HttpException;
 
 class SiteController extends Controller
 {
+    public $jsonld = [];
+
     public function actions()
     {
         return [
@@ -44,6 +46,14 @@ class SiteController extends Controller
                 ->offset($pages->offset)
                 ->orderBy(['date' => SORT_DESC])
                 ->all();
+
+            $this->jsonld = [
+                '@context' => 'http://schema.org',
+                '@type' => 'ItemList',
+                'name' => $category->name,
+                'image' => 'http://'. $_SERVER['SERVER_NAME'] . '/img/tracker_logo.png',
+            ];
+
         }else
         {
             $countQ = clone $q;
@@ -53,6 +63,13 @@ class SiteController extends Controller
                 ->offset($pages->offset)
                 ->orderBy(['date' => SORT_DESC])
                 ->all();
+
+            $this->jsonld = [
+                '@context' => 'http://schema.org',
+                '@type' => 'ItemList',
+                'name' => 'Latest',
+                'image' => 'http://'. $_SERVER['SERVER_NAME'] . '/img/tracker_logo.png',
+            ];
         }
 
         return $this->render('index', [

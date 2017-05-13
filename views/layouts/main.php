@@ -76,6 +76,10 @@ AppAsset::register($this);
 
     <meta name="google-site-verification" content="YPfLsY7wPaAg24j4p46zDNyQ7ib94xNy8ufvOQMTJFo" />
 
+    <script type="application/ld+json">
+    <?= json_encode($this->context->jsonld) ?>
+    </script>
+
     <?php $this->head() ?>
 
 </head>
