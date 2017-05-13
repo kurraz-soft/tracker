@@ -6,7 +6,6 @@ use app\components\Controller;
 use app\models\TrackerCategories;
 use app\models\TrackerItems;
 use Yii;
-use app\models\ContactForm;
 use yii\data\Pagination;
 use yii\web\HttpException;
 
@@ -47,11 +46,16 @@ class SiteController extends Controller
                 ->orderBy(['date' => SORT_DESC])
                 ->all();
 
+            $item_list = array_filter($items, function ($item){
+                return $item->name;
+            });
+
             $this->jsonld = [
                 '@context' => 'http://schema.org',
                 '@type' => 'ItemList',
                 'name' => $category->name,
                 'image' => 'http://'. $_SERVER['SERVER_NAME'] . '/img/tracker_logo.png',
+                'itemListElement' => $item_list,
             ];
 
         }else
@@ -64,11 +68,16 @@ class SiteController extends Controller
                 ->orderBy(['date' => SORT_DESC])
                 ->all();
 
+            $item_list = array_filter($items, function ($item){
+                return $item->name;
+            });
+
             $this->jsonld = [
                 '@context' => 'http://schema.org',
                 '@type' => 'ItemList',
                 'name' => 'Latest',
                 'image' => 'http://'. $_SERVER['SERVER_NAME'] . '/img/tracker_logo.png',
+                'itemListElement' => $item_list,
             ];
         }
 
