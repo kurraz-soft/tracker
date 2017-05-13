@@ -46,9 +46,11 @@ class SiteController extends Controller
                 ->orderBy(['date' => SORT_DESC])
                 ->all();
 
-            $item_list = array_filter($items, function ($item){
-                return $item->name;
-            });
+            $item_list = [];
+            foreach ($items as $item)
+            {
+                $item_list[] = $item->name;
+            }
 
             $this->jsonld = [
                 '@context' => 'http://schema.org',
@@ -68,9 +70,11 @@ class SiteController extends Controller
                 ->orderBy(['date' => SORT_DESC])
                 ->all();
 
-            $item_list = array_filter($items, function ($item){
-                return $item->name;
-            });
+            $item_list = [];
+            foreach ($items as $item)
+            {
+                $item_list[] = $item->name;
+            }
 
             $this->jsonld = [
                 '@context' => 'http://schema.org',
