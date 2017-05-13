@@ -46,18 +46,12 @@ class SiteController extends Controller
                 ->orderBy(['date' => SORT_DESC])
                 ->all();
 
-            $item_list = [];
-            foreach ($items as $item)
-            {
-                $item_list[] = $item->name;
-            }
 
             $this->jsonld = [
                 '@context' => 'http://schema.org',
-                '@type' => 'ItemList',
+                '@type' => 'Thing',
                 'name' => $category->name,
                 'image' => 'http://'. $_SERVER['SERVER_NAME'] . '/img/tracker_logo.png',
-                'itemListElement' => $item_list,
             ];
 
         }else
@@ -70,18 +64,11 @@ class SiteController extends Controller
                 ->orderBy(['date' => SORT_DESC])
                 ->all();
 
-            $item_list = [];
-            foreach ($items as $item)
-            {
-                $item_list[] = $item->name;
-            }
-
             $this->jsonld = [
                 '@context' => 'http://schema.org',
-                '@type' => 'ItemList',
+                '@type' => 'Thing',
                 'name' => 'Latest',
                 'image' => 'http://'. $_SERVER['SERVER_NAME'] . '/img/tracker_logo.png',
-                'itemListElement' => $item_list,
             ];
         }
 
