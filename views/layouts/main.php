@@ -80,6 +80,10 @@ AppAsset::register($this);
     <?= json_encode($this->context->jsonld) ?>
     </script>
 
+    <meta property="og:title" content="<?= $this->title ?>">
+    <meta property="og:image" content="http://<?= $_SERVER['SERVER_NAME'] ?>/img/tracker_logo.png">
+    <meta property="og:description" content="Удобный поиск по рутрекеру">
+
     <?php $this->head() ?>
 
 </head>
