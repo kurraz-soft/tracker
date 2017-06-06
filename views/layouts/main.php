@@ -222,6 +222,7 @@ _________________________________________________________ -->
                                 <?php $templ = '<p style="white-space: normal; padding-top: 5px; padding-bottom: 5px">{{value}}</p>'; ?>
                                 <?= \kartik\widgets\Typeahead::widget([
                                     'name' => 'q',
+                                    'value' => Yii::$app->request->get('q'),
                                     'options' => ['placeholder' => 'Search'],
                                     'dataset' => [
                                         [
