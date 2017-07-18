@@ -29,6 +29,12 @@ class ParserController extends Controller
 
         sleep(5);
 
+        $items = $parser->crawlerCategory(842); //Новинки и сериалы в стадии показа
+
+        $cnt = $this->saveCrawlerItems($items,1);
+
+        sleep(5);
+
         $items = $parser->crawlerCategory(635); //Игры
         $cnt += $this->saveCrawlerItems($items,2);
 
