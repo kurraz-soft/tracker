@@ -223,7 +223,7 @@ _________________________________________________________ -->
                                 <?= \kartik\widgets\Typeahead::widget([
                                     'name' => 'q',
                                     'value' => Yii::$app->request->get('q'),
-                                    'options' => ['placeholder' => 'Search'],
+                                    'options' => ['placeholder' => 'Search', 'autofocus' => true],
                                     'dataset' => [
                                         [
                                             'datumTokenizer' => "Bloodhound.tokenizers.obj.whitespace('value')",
