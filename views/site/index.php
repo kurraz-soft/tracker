@@ -25,7 +25,7 @@ else
         <div class="row portfolio">
 
             <?php foreach($items as $item): ?>
-            <div class="col-sm-3 col-md-3" style="border: 1px solid; border-collapse: collapse; text-align: center">
+            <div class="col-sm-3 col-md-3" style="border: 1px solid; border-collapse: collapse; text-align: center; height: 368px">
                 <a href="<?= $item->url ?>" title="<?= $item->name ?>" target="_blank">
                     <div class="box-image">
                         <div class="image">
