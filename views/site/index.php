@@ -23,6 +23,8 @@ else
         </div>
 
         <div class="row portfolio">
+        
+            <?php if(count($items) > 0): ?>
 
             <?php foreach($items as $item): ?>
             <div class="col-sm-3 col-md-3" style="border: 1px solid; border-collapse: collapse; text-align: center; height: 368px">
@@ -44,6 +46,12 @@ else
                 </a>
             </div>
             <?php endforeach ?>
+            
+            <?php else: ?>
+            
+            <h3 class="text-center">Не найдено</h3>
+            
+            <?php endif; ?>
 
         </div>
 
