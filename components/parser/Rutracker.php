@@ -35,7 +35,7 @@ class Rutracker
             ->cookie($this->cookieFile())
             ->execute();
 
-        if(strpos(iconv('cp1251','UTF-8',$curl->result),'Вы зашли как') === false) throw new ErrorException("Can't login");
+        if(strpos(iconv('cp1251','UTF-8',$curl->result),$login) === false) throw new ErrorException("Can't login");
     }
 
     public function crawlerCategory($cat_id, $pages = 1)

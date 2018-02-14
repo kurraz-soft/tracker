@@ -21,7 +21,7 @@ class ParserController extends Controller
     public function actionCrawler()
     {
         $parser = new Rutracker();
-        $parser->login('shounen123qwe','123qwe');
+        $parser->login(getenv('RUTRACKER_LOGIN'),getenv('RUTRACKER_PASS'));
 
         $items = $parser->crawlerCategory(2366); //Зарубежные сериалы
 
