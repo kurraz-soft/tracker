@@ -105,6 +105,15 @@ class SiteController extends Controller
 
     public function actionSearchTypeahead($q)
     {
-        return json_encode(TrackerItems::find()->limit(5)->active()->andWhere(['like','name',$q])->select('name AS value')->asArray()->all());
+        return json_encode(
+            TrackerItems::find()
+                ->limit(5)
+                ->active()
+                ->andWhere(['like','name',$q])
+                ->select('name AS value')
+                ->orderBy(['date' => SORT_DESC])
+                ->asArray()
+                ->all()
+        );
     }
 }
