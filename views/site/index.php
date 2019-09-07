@@ -35,9 +35,9 @@ else
                         </div>
                     </div>
                 </a>
-                <p>
-                    <a href="<?= $item->magnet_link ?>" title="Скачать magnet-ссылку"><img src="http://static.t-ru.org/templates/v1/images/icon_magnet_24_1.png"></a>
-                </p>
+                <div style="display: flex; justify-content: center; margin-bottom: 5px">
+                    <a href="<?= $item->magnet_link ?>" title="Скачать magnet-ссылку"><i class="magnet-ico"></i></a>
+                </div>
                 <!-- /.box-image -->
                 <a href="<?= $item->url ?>" title="<?= $item->name ?>" target="_blank">
                     <div class="name" style="color: black; font-size: 12px; font-weight: bold; height: 52px; text-overflow: ellipsis; overflow: hidden">

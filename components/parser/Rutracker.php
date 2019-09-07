@@ -81,7 +81,7 @@ class Rutracker
             $data[] = [
                 'name' => trim(pq($row)->find('.row4.t-title')->text()),
                 'url' => 'http://rutracker.org/forum/' . trim(pq($row)->find('.row4.t-title a')->attr('href')),
-                'timestamp' => trim(pq($row)->find('.row4.small.nowrap:not(.tor-size) u')->text()),
+                'timestamp' => pq($row)->find('.row4.small.nowrap[data-ts_text]:not(.tor-size)')->data('ts_text'),
             ];
         }
 
