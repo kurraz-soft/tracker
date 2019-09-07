@@ -33,5 +33,5 @@ phpunit.phar
 Vagrantfile
 /web/upload
 /web/assets
-.log
+*.log
 composer.lock
