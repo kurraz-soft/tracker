@@ -37,7 +37,7 @@ class TrackerItems extends \yii\db\ActiveRecord
             [['name', 'url'], 'required'],
             [['date'], 'safe'],
             [['category_id', 'spider_processed'], 'integer'],
-            [['name', 'url', 'image_src'], 'string', 'max' => 255]
+            [['name', 'url', 'image_src'], 'string', 'max' => 512]
         ];
     }
 
