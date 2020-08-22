@@ -15,8 +15,8 @@ require_once(__DIR__.'/../phpQuery.php');
 
 class Rutracker
 {
-    const LOGIN_URL = 'http://rutracker.org/forum/login.php';
-    const TRACKER_URL = 'http://rutracker.org/forum/tracker.php';
+    const LOGIN_URL = 'https://rutracker.org/forum/login.php';
+    const TRACKER_URL = 'https://rutracker.org/forum/tracker.php';
 
     public function cookieFile()
     {
@@ -68,7 +68,7 @@ class Rutracker
     private function _parseCrawlerUrl($url, $unload = true, &$doc = null)
     {
         $curl = new Curl();
-        $curl->cookieFile($this->cookieFile())->cookie($this->cookieFile());
+        $curl->cookieFile($this->cookieFile())->cookie($this->cookieFile())->ignoreSsl();
 
         $curl->url($url)->execute();
 
@@ -79,8 +79,8 @@ class Rutracker
         foreach ($rows as $row)
         {
             $data[] = [
-                'name' => trim(pq($row)->find('.row4.t-title')->text()),
-                'url' => 'http://rutracker.org/forum/' . trim(pq($row)->find('.row4.t-title a')->attr('href')),
+                'name' => trim(pq($row)->find('.row4 .t-title')->text()),
+                'url' => 'http://rutracker.org/forum/' . trim(pq($row)->find('.row4 .t-title a')->attr('href')),
                 'timestamp' => pq($row)->find('.row4.small.nowrap[data-ts_text]:not(.tor-size)')->attr('data-ts_text'),
             ];
         }
