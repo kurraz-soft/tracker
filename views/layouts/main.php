@@ -175,6 +175,7 @@ _________________________________________________________ -->
                                                         <h5>Игры</h5>
                                                         <ul>
                                                             <li><a href="<?= Url::to(['site/index','cat_id' => 2]) ?>">PC</a></li>
+                                                            <li><a href="<?= Url::to(['site/index','cat_id' => 5]) ?>">Switch</a></li>
                                                         </ul>
                                                     </div>
                                                 </div>

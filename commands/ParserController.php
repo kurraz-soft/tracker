@@ -48,6 +48,11 @@ class ParserController extends Controller
         $items = $parser->crawlerCategory(1389); //Аниме
         $cnt += $this->saveCrawlerItems($items,4);
 
+        sleep(5);
+
+        $items = $parser->crawlerCategory(1605); //Игры switch
+        $cnt += $this->saveCrawlerItems($items,5);
+
         echo "DONE. {$cnt} processed\n";
     }
 
