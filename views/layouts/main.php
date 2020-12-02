@@ -176,6 +176,7 @@ _________________________________________________________ -->
                                                         <ul>
                                                             <li><a href="<?= Url::to(['site/index','cat_id' => 2]) ?>">PC</a></li>
                                                             <li><a href="<?= Url::to(['site/index','cat_id' => 5]) ?>">Switch</a></li>
+                                                            <li><a href="<?= Url::to(['site/index','cat_id' => 6]) ?>">VR</a></li>
                                                         </ul>
                                                     </div>
                                                 </div>

@@ -65,6 +65,33 @@ class Rutracker
         return $data;
     }
 
+    public function crawlerSearch($search, $pages = 1)
+    {
+        /**
+         * @var \phpQueryObject $doc
+         */
+        $doc = null;
+
+        $data = $this->_parseCrawlerUrl(self::TRACKER_URL . '?nm=' . urlencode($search), false, $doc);
+
+        $href = $doc->find('.pg:first')->attr('href');
+
+        $doc->unloadDocument();
+
+        $matches = [];
+        if(preg_match('#tracker\.php\?search_id=(.+)&#',$href,$matches))
+        {
+            $search_id = $matches[1];
+            for($i = 1; $i < $pages; $i++)
+            {
+                $url = self::TRACKER_URL.'?search_id='.$search_id.'&start='.$i*50 . '&nm=' . urlencode($search);
+                $data = array_merge($data, $this->_parseCrawlerUrl($url));
+            }
+        }
+
+        return $data;
+    }
+
     private function _parseCrawlerUrl($url, $unload = true, &$doc = null)
     {
         $curl = new Curl();
