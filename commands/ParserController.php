@@ -115,7 +115,7 @@ class ParserController extends Controller
             /**
              * @var TrackerItems $item
              */
-            $item->spider_processed = true;
+            $item->spider_processed = 1;
             $data = $parser->spider($item->url);
             $item->image_src = $data['image_src'];
             $item->magnet_link = $data['magnet_link'];
