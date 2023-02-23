@@ -36,7 +36,15 @@ $config = [
             'cookieValidationKey' => 'WXQupRHt7TalGVvnyNEO47SvoQfXI2Dq',
         ],
         'cache' => [
-            'class' => 'yii\caching\FileCache',
+            //'class' => 'yii\caching\FileCache',
+            'class' => 'yii\caching\MemCache',
+            'servers' => [
+                [
+                    'host' => 'localhost',
+                    'port' => 11211,
+                    'weight' => 100,
+                ]
+            ],
         ],
         'user' => [
             'identityClass' => 'app\models\User',

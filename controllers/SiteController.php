@@ -116,4 +116,21 @@ class SiteController extends Controller
                 ->all()
         );
     }
+
+    public function actionTest($action)
+    {
+        $cache = \Yii::$app->cache;
+
+        switch ($action)
+        {
+            case 'save':
+                $cache->set('a', 'abc');
+                die('saved');
+                break;
+            case 'load':
+                var_dump($cache->get('a'));
+                die('loaded');
+                break;
+        }
+    }
 }

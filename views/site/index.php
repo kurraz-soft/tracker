@@ -7,6 +7,8 @@
  * @var \yii\data\Pagination $pages
  */
 
+use app\components\LocalProxyFile;
+
 if(empty($category))
     $this->title = 'Latest';
 else
@@ -31,7 +33,7 @@ else
                 <a href="<?= $item->url ?>" title="<?= $item->name ?>" target="_blank">
                     <div class="box-image">
                         <div class="image">
-                            <img style="height: 250px; display: inline" src="<?= $item->image_src ?>" alt="<?= $item->name ?>" class="img-responsive">
+                            <img style="height: 250px; display: inline" src="<?= LocalProxyFile::makeUrl($item->image_src) ?>" alt="<?= $item->name ?>" class="img-responsive">
                         </div>
                     </div>
                 </a>
