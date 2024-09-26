@@ -31,7 +31,7 @@ class ParserController extends Controller
 
         $items = $parser->crawlerCategory(842); //Новинки и сериалы в стадии показа
 
-        $cnt = $this->saveCrawlerItems($items,1);
+        $cnt += $this->saveCrawlerItems($items,1);
 
         sleep(5);
 
@@ -104,13 +104,13 @@ class ParserController extends Controller
         return $cnt;
     }
 
-    public function actionSpider()
+    public function actionSpider($limit = 50)
     {
         $parser = new Rutracker();
         //$parser->login('shounen123qwe','123qwe');
 
         $cnt = 0;
-        foreach(TrackerItems::find()->where(['spider_processed' => 0])->limit(25)->each() as $item)
+        foreach(TrackerItems::find()->where(['spider_processed' => 0])->limit($limit)->each() as $item)
         {
             /**
              * @var TrackerItems $item
