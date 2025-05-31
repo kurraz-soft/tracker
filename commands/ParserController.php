@@ -21,42 +21,43 @@ class ParserController extends Controller
     public function actionCrawler()
     {
         $parser = new Rutracker();
-        $parser->login(getenv('RUTRACKER_LOGIN'),getenv('RUTRACKER_PASS'));
+        //Логин вручную через куки
+        //$parser->login(getenv('RUTRACKER_LOGIN'),getenv('RUTRACKER_PASS'));
 
         $items = $parser->crawlerCategory(2366); //Зарубежные сериалы
 
         $cnt = $this->saveCrawlerItems($items,1);
 
-        sleep(5);
+        //sleep(5);
 
         $items = $parser->crawlerCategory(842); //Новинки и сериалы в стадии показа
 
         $cnt += $this->saveCrawlerItems($items,1);
 
-        sleep(5);
+        //sleep(5);
 
         $items = $parser->crawlerCategory(635); //Игры
         $cnt += $this->saveCrawlerItems($items,2);
 
-        sleep(5);
+        //sleep(5);
 
         $items = $parser->crawlerCategory(921); //Мультсериалы
         $cnt += $this->saveCrawlerItems($items,3);
 
-        sleep(5);
+        //sleep(5);
 
         $items = $parser->crawlerCategory(1389); //Аниме
         $cnt += $this->saveCrawlerItems($items,4);
 
-        sleep(5);
+        //sleep(5);
 
         $items = $parser->crawlerCategory(1605); //Игры switch
         $cnt += $this->saveCrawlerItems($items,5);
 
-        sleep(5);
+        //sleep(5);
 
-        $items = $parser->crawlerSearch('vr only'); //Игры VR
-        $cnt += $this->saveCrawlerItems($items,6);
+        /*$items = $parser->crawlerSearch('vr only'); //Игры VR
+        $cnt += $this->saveCrawlerItems($items,6);*/
 
         echo "DONE. {$cnt} processed\n";
     }
@@ -97,7 +98,7 @@ class ParserController extends Controller
             $cnt++;
             $model->name = $item['name'];
             $model->date = date('Y-m-d H:i:s', $item['timestamp']);
-            $model->spider_processed = 0;
+            //$model->spider_processed = 0;
             if(!$model->save()) throw new ErrorException(VarDumper::dumpAsString($model->errors));
         }
 
@@ -115,12 +116,28 @@ class ParserController extends Controller
             /**
              * @var TrackerItems $item
              */
+
+            echo "spider: " . $item->name . '...';
+
+            $data = $parser->spiderFromTitle($item->name);
+
+            if(!$data['image_src'])
+            {
+                $item->spider_processed = 1;
+                $item->save();
+                echo "SKIPPED\n";
+                continue;
+            }
+
             $item->spider_processed = 1;
-            $data = $parser->spider($item->url);
             $item->image_src = $data['image_src'];
             $item->magnet_link = $data['magnet_link'];
             if(!$item->save()) throw new ErrorException(VarDumper::dumpAsString($item->errors));
             $cnt++;
+
+            echo "DONE\n";
+
+            sleep(5);
         }
 
         echo "DONE. {$cnt} processed\n";

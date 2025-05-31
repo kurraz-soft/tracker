@@ -43,11 +43,11 @@ class Rutracker
         /**
          * @var \phpQueryObject $doc
          */
-        $doc = null;
+        //$doc = null;
 
-        $data = $this->_parseCrawlerUrl(self::TRACKER_URL.'?f='.$cat_id, false, $doc);
+        $data = $this->_parseCrawlerRssUrl('https://feed.rutracker.cc/atom/f/'.$cat_id.'.atom');
 
-        $href = $doc->find('.pg:first')->attr('href');
+        /*$href = $doc->find('.pg:first')->attr('href');
 
         $doc->unloadDocument();
 
@@ -60,7 +60,7 @@ class Rutracker
                 $url = self::TRACKER_URL.'?search_id='.$search_id.'&start='.$i*50;
                 $data = array_merge($data, $this->_parseCrawlerUrl($url));
             }
-        }
+        }*/
 
         return $data;
     }
@@ -94,12 +94,21 @@ class Rutracker
 
     private function _parseCrawlerUrl($url, $unload = true, &$doc = null)
     {
-        $curl = new Curl();
+        /*$curl = new Curl();
         $curl->cookieFile($this->cookieFile())->cookie($this->cookieFile())->ignoreSsl();
 
         $curl->url($url)->execute();
 
-        $doc = \phpQuery::newDocument(iconv('cp1251','UTF-8',$curl->result));
+        $html = $curl->result;
+        */
+
+        echo "RUN _parseCrawlerUrl " . $url . "\n";
+
+        $html = $this->openUrlWithBrowser($url);
+
+        var_dump($html);die('test');
+
+        $doc = \phpQuery::newDocument(iconv('cp1251','UTF-8', $html));
 
         $data = [];
         $rows = $doc->find('.tCenter.hl-tr');
@@ -117,16 +126,52 @@ class Rutracker
         return $data;
     }
 
+    private function _parseCrawlerRssUrl($url)
+    {
+        echo "RUN _parseCrawlerRssUrl " . $url . "\n";
+
+        // Загружаем RSS-ленту
+        $xml = simplexml_load_file($url);
+
+        if (!$xml) {
+            die('Ошибка загрузки RSS');
+        }
+
+        $data = [];
+
+        // Перебираем элементы <entry>
+        foreach ($xml->entry as $entry)
+        {
+            $title = (string) $entry->title;
+            $link  = (string) $entry->link['href'];
+            $updated = (string) $entry->updated;
+
+            $data[] = [
+                'name' => $title,
+                'url' => $link,
+                'timestamp' => strtotime($updated),
+            ];
+        }
+
+        return $data;
+    }
+
     public function spider($url)
     {
-        $curl = new Curl();
-        //$curl->cookieFile($this->cookieFile())->cookie($this->cookieFile());
+        /*$curl = new Curl();
+        $curl->cookieFile($this->cookieFile())->cookie($this->cookieFile());
 
         $curl->url($url)->execute();
 
-        $doc = \phpQuery::newDocument($curl->result);
+        $doc = \phpQuery::newDocument($curl->result);*/
 
-        $img_src = $doc->find('.post_body .postImg.postImgAligned')->attr('title');
+        $html = $this->openUrlWithBrowser($url);
+
+        $doc = \phpQuery::newDocument($html);
+
+        $img_src = $doc->find('.post_body .postImg.postImgAligned:first')->attr('src');
+        if(!$img_src)
+            $doc->find('.post_body .postImg:first')->attr('src');
 
         $data = [
             'image_src' => $img_src,
@@ -134,5 +179,32 @@ class Rutracker
         ];
 
         return $data;
+    }
+
+    public function spiderFromTitle($title)
+    {
+        return [
+            'image_src' => $this->loadImageThroughDdg($title),
+            'magnet_link' => '',
+        ];
+    }
+
+    private function loadImageThroughDdg($title)
+    {
+        $title = str_replace('"',"'", $title);
+        shell_exec('ddgs images -k "' . str_replace('`','', $title) . '" -type photo -m 1 -o ddgs.json');
+
+        if(!file_exists('ddgs.json')) return '';
+
+        $result = file_get_contents('ddgs.json');
+        unlink('ddgs.json');
+        $result = json_decode($result, true);
+
+        return $result[0]['thumbnail'] ?? '';
+    }
+
+    private function openUrlWithBrowser($url)
+    {
+        return shell_exec('node ' . \Yii::getAlias('@app') . '/browser_adapter.js ' . $url);
     }
 }

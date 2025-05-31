@@ -33,12 +33,14 @@ else
                 <a href="<?= $item->url ?>" title="<?= $item->name ?>" target="_blank">
                     <div class="box-image">
                         <div class="image">
-                            <img style="height: 250px; display: inline" src="<?= LocalProxyFile::makeUrl($item->image_src) ?>" alt="<?= $item->name ?>" class="img-responsive">
+                            <img style="height: 250px; display: inline" src="<?= $item->image_src?LocalProxyFile::makeUrl($item->image_src):'https://dummyimage.com/250x250/000/fff&text=no+image' ?>" alt="<?= $item->name ?>" class="img-responsive">
                         </div>
                     </div>
                 </a>
                 <div style="display: flex; justify-content: center; margin-bottom: 5px">
+                    <?php if($item->magnet_link): ?>
                     <a href="<?= $item->magnet_link ?>" title="Скачать magnet-ссылку"><i class="magnet-ico"></i></a>
+                    <?php endif; ?>
                 </div>
                 <!-- /.box-image -->
                 <a href="<?= $item->url ?>" title="<?= $item->name ?>" target="_blank">

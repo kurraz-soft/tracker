@@ -35,6 +35,7 @@ class TrackerItemsQuery extends \yii\db\ActiveQuery
 
     public function active()
     {
-        return $this->andWhere(['spider_processed' => 1]);
+        //return $this->andWhere(['spider_processed' => 1]);
+        return $this;
     }
 }
