@@ -105,7 +105,7 @@ class ParserController extends Controller
         return $cnt;
     }
 
-    public function actionSpider($limit = 50)
+    public function actionSpider($limit = 10)
     {
         $parser = new Rutracker();
         //$parser->login('shounen123qwe','123qwe');

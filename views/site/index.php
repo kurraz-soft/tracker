@@ -33,7 +33,13 @@ else
                 <a href="<?= $item->url ?>" title="<?= $item->name ?>" target="_blank">
                     <div class="box-image">
                         <div class="image">
-                            <img style="height: 250px; display: inline" src="<?= $item->image_src?LocalProxyFile::makeUrl($item->image_src):'https://dummyimage.com/250x250/000/fff&text=no+image' ?>" alt="<?= $item->name ?>" class="img-responsive">
+                            <?php if($item->image_src): ?>
+                            <img style="height: 250px; display: inline" src="<?= LocalProxyFile::makeUrl($item->image_src) ?>" alt="<?= $item->name ?>" class="img-responsive">
+                            <?php else: ?>
+                            <div class="h3">
+                                <?= $item->name ?>
+                            </div>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </a>

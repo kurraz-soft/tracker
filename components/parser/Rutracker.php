@@ -184,13 +184,59 @@ class Rutracker
     public function spiderFromTitle($title)
     {
         return [
-            'image_src' => $this->loadImageThroughDdg($title),
+            'image_src' => $this->loadImageThroughBrave($title),
             'magnet_link' => '',
         ];
     }
 
+    private function loadImageThroughBrave($title)
+    {
+        $curl = curl_init();
+
+        sleep(1); //1 req per sec
+
+        $query = trim(preg_replace('/(\[.*?\]|\(.*?\))/', '', $title));
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => 'https://api.search.brave.com/res/v1/images/search?safesearch=off&q=' . urlencode($query),
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'GET',
+            CURLOPT_HTTPHEADER => array(
+                'X-Subscription-Token: ' . getenv('BRAVE_API_TOKEN')
+            ),
+        ));
+
+        $response = json_decode(curl_exec($curl), true);
+
+        curl_close($curl);
+
+        try {
+            $img_url = $response['results'][0]['properties']['url'];
+        }catch (\Exception $e)
+        {
+            return '';
+        }
+
+        if(!empty($img_url))
+        {
+            list($width, $height, $type, $attr) = @getimagesize($img_url);
+            if(!$height || !$width)
+                $img_url = null;
+        }
+
+        return $img_url ?? '';
+    }
+
     private function loadImageThroughDdg($title)
     {
+        //TODO disabled RATE LIMIT!
+        return '';
+
         $title = str_replace('"',"'", $title);
         shell_exec('ddgs images -k "' . str_replace('`','', $title) . '" -type photo -m 1 -o ddgs.json');
 
